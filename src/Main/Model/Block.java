@@ -52,7 +52,7 @@ public class Block {
     }
 
     public String removeLastData(){
-        return datas.remove(datas.size());
+        return datas.remove(datas.size()-1);
     }
 
     public void calculateNonceAndHash() throws NoSuchAlgorithmException, UnsupportedEncodingException {

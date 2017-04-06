@@ -1,6 +1,7 @@
 package Main;
 
 import Main.Model.Block;
+import Main.Model.Blockchain;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,12 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
+
+        /*Blockchain blockchain = new Blockchain();
+        Block block = new Block(blockchain.getLastBlock().getCurrHash());
+        block.calculateNonceAndHash();
+        blockchain.addBlock(block);
+        System.out.println(blockchain);*/
     }
 
 
