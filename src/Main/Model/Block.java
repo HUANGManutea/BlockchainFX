@@ -1,5 +1,8 @@
 package Main.Model;
 
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import sun.plugin2.message.Message;
 
 import java.io.UnsupportedEncodingException;
@@ -14,41 +17,60 @@ import java.util.List;
  * Created by Manutea on 06/04/2017.
  */
 public class Block {
-    private String prevHash;
-    private String currHash;
-    private int nonce;
-    private List<String> datas;
-    private boolean nonceCalculated;
+    private StringProperty prevHash;
+    private StringProperty currHash;
+    private IntegerProperty nonce;
+    private ObservableList<String> datas;
+    private BooleanProperty nonceCalculated;
 
     public Block(String previousHash) {
-        prevHash = previousHash;
-        nonceCalculated = false;
-        datas = new ArrayList<>();
+
+        prevHash = new SimpleStringProperty(previousHash);
+        currHash = new SimpleStringProperty();
+        nonce = new SimpleIntegerProperty();
+        nonceCalculated = new SimpleBooleanProperty(false);
+        datas = FXCollections.observableArrayList();
     }
 
     public String getPrevHash() {
+        return prevHash.get();
+    }
+
+    public StringProperty prevHashProperty() {
         return prevHash;
     }
 
     public String getCurrHash() {
+        return currHash.get();
+    }
+
+    public StringProperty currHashProperty() {
         return currHash;
     }
 
     public int getNonce() {
+        return nonce.get();
+    }
+
+    public IntegerProperty nonceProperty() {
         return nonce;
     }
 
-    public List<String> getDatas() {
+    public ObservableList<String> getDatas() {
         return datas;
     }
 
     public boolean isNonceCalculated() {
+        return nonceCalculated.get();
+    }
+
+    public BooleanProperty nonceCalculatedProperty() {
         return nonceCalculated;
     }
 
     public void addData(String data){
         datas.add(data);
-        nonceCalculated = false;
+        nonceCalculated.setValue(false);
     }
 
     public String removeLastData(){
@@ -56,7 +78,7 @@ public class Block {
     }
 
     public void calculateNonceAndHash() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        if (nonceCalculated)
+        if (nonceCalculated.get())
         {
             System.out.println("nonce already calculated");
         }
@@ -70,7 +92,7 @@ public class Block {
                 mergedata+=data;
             }
 
-            String hashes = prevHash;
+            String hashes = prevHash.getValue();
             hashes += mergedata;
 
             boolean nonceFound = false;
@@ -92,9 +114,9 @@ public class Block {
 
             if (nonceFound)
             {
-                nonceCalculated = true;
-                nonce = _nonce;
-                currHash = _newHash;
+                nonceCalculated.setValue(true);
+                nonce.setValue(_nonce);
+                currHash.setValue(_newHash);
                 System.out.println("nonce found");
             }
             else

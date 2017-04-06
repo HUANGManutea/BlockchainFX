@@ -1,5 +1,8 @@
 package Main.Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -9,10 +12,10 @@ import java.util.List;
  * Created by Manutea on 07/04/2017.
  */
 public class Blockchain {
-    List<Block> blocks;
+    private ObservableList<Block> blocks;
 
     public Blockchain(){
-        blocks = new ArrayList<>();
+        blocks = FXCollections.observableArrayList();
         try {
             addInitBlock();
         } catch (UnsupportedEncodingException e) {
@@ -22,7 +25,7 @@ public class Blockchain {
         }
     }
 
-    public List<Block> getBlocks() {
+    public ObservableList<Block> getBlocks() {
         return blocks;
     }
 
