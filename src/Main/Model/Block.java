@@ -24,7 +24,6 @@ public class Block {
     private BooleanProperty nonceCalculated;
 
     public Block(String previousHash) {
-
         prevHash = new SimpleStringProperty(previousHash);
         currHash = new SimpleStringProperty();
         nonce = new SimpleIntegerProperty();
